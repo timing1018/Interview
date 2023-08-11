@@ -10,6 +10,7 @@ import SearchIdModal from './SearchIdModal';
 import SearchPasswordModal from './SearchPasswordModal';
 import { useRecoilState } from 'recoil';
 import { userDataAtom } from '../../recoil/userDataAtom';
+import SocialLogin from './SocialLogin'
 
 // LoginPage 컴포넌트 선언
 const LoginPage = () => {
@@ -129,6 +130,16 @@ const LoginPage = () => {
         setSearchPasswordModalOpen(false);
     };
 
+    const handleSocialLoginSuccess = (response: any) => {
+        console.log('Social login succeeded:', response);
+        // 성공 처리 로직을 추가하거나 원하는 동작을 수행합니다.
+    };
+
+    const handleSocialLoginFailure = (error: any) => {
+        console.error('Social login failed:', error);
+        // 실패 처리 로직을 추가하거나 원하는 동작을 수행합니다.
+    };
+
     return (
         <StyledPageContainer>
             <StyledCommonContainer>
@@ -144,14 +155,17 @@ const LoginPage = () => {
                             onChange={onChangePassword}
                         />
                         {passwordError && <StyledErrorMessage>{passwordError.toString()}</StyledErrorMessage>}
-                        <StyledBtnWrapper>
-                            <StyledSignupBtn variant="contained" color="primary" type="button" onClick={onClickSignup}>
-                                회원가입
-                            </StyledSignupBtn>
-                            <StyledLoginBtn variant="contained" color="primary" type="submit">
-                                로그인
-                            </StyledLoginBtn>
-                        </StyledBtnWrapper>
+                        <LoginBtnWrapper>
+                            <SocialLogin onSuccess={handleSocialLoginSuccess} onFailure={handleSocialLoginFailure} />
+                            <StyledBtnWrapper>
+                                <StyledSignupBtn variant="contained" color="primary" type="button" onClick={onClickSignup}>
+                                    회원가입
+                                </StyledSignupBtn>
+                                <StyledLoginBtn variant="contained" color="primary" type="submit">
+                                    로그인
+                                </StyledLoginBtn>
+                            </StyledBtnWrapper>
+                        </LoginBtnWrapper>
                         <StyledSearchUserInfo>
                             <StyledSearchId onClick={openSearchIdModal}>아이디 찾기</StyledSearchId>
                             <StyledSearchPassword onClick={openSearchPasswordModal}>비밀번호 찾기</StyledSearchPassword>
@@ -256,14 +270,28 @@ const StyledLoginInput = styled.input`
     }
 `;
 
+const LoginBtnWrapper = styled.div`
+    width: 100%;
+    display: flex;
+    justify-items: space-between;
+    align-items: center;
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+        align-items: center;
+    }
+`;
+
 /** 버튼 Wrapper form */
 const StyledBtnWrapper = styled.form`
     display: flex;
     margin-top: 40px;
+    justify-content: flex-end;
     margin-left: auto;
 
     @media (max-width: 768px) {
         margin-left: 0;
+        margin-top: 20px;
     }
 `;
 
