@@ -35,13 +35,13 @@ const SocialLogin: React.FC<SocialLoginProps> = ({ onSuccess, onFailure }) => {
   return (
     <SocialLoginContainer>
       <CustomLoginButton onClick={handleKakaoLogin}>
-        <img src={kakaoImage} alt="카카오 로그인" width="45" height="45" />
+        <StyledImage src={kakaoImage} alt="카카오 로그인" />
       </CustomLoginButton>
       <CustomLoginButton onClick={handleGoogleLogin}>
-        <img src={googleImage} alt="구글 로그인" width="45" height="45" margin-left="35" />
+        <StyledImage src={googleImage} alt="구글 로그인" />
       </CustomLoginButton>
       <CustomLoginButton onClick={handleNaverLogin}>
-        <img src={naverImage} alt="네이버 로그인" width="45" height="45" margin-left="35" />
+        <StyledImage src={naverImage} alt="네이버 로그인" />
       </CustomLoginButton>
     </SocialLoginContainer>
   );
@@ -59,11 +59,16 @@ const SocialLoginContainer = styled.div`
 const CustomLoginButton = styled.div`
   cursor: pointer;
   margin-left: 15px;
-  transition: transform 0.2s;
 
   &:first-of-type {
     margin-left: 0;
   }
+`;
+
+const StyledImage = styled.img`
+  width: 45px;
+  height: 45px;
+  transition: transform 0.2s;
 
   &:hover {
     transform: scale(1.05);
